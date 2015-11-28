@@ -1,0 +1,17 @@
+{
+    "name" : "FLINK_ON_YARN",
+    "label" : "Flink",
+    "description" : "Apache Flink. This service runs Flink as an application on YARN.",
+    "version" : "0.10.1",
+    "compatibility" : { "cdhVersion" : { "min" : "5", "max" : "5" } },
+    "icon" : "images/icon.ico",
+    "serviceDependencies" : [
+        {
+            "name" : "YARN",
+            "required" : "true"
+        }
+    ],
+    "parcel" : {
+    "requiredTags" : ["flink", "cdh"]
+    }
+}
