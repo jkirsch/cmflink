@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "Flink",
+  "version": "0.10.1",
+  "setActiveSymlink": true,
+  "depends": "",
+  "replaces": "Flink",
+  "conflicts": "",
+  "provides": [
+    "flink"
+  ],
+
+  "packages": [
+    { "name"   : "flink",
+      "version": "0.10.1"
+    }
+  ],
+
+  "scripts": {
+    "defines": "flink_env.sh"
+  },
+
+  "components": [
+    { "name"       : "flink",
+      "version"    : "0.10.1",
+      "pkg_version": "0.10.1"
+    }
+  ],
+
+  "users": {
+    "flink": {
+      "longname"    : "Flink User",
+      "shell"       : "/bin/bash",
+      "home"        : "/tmp",
+      "extra_groups": [ "flink" ]
+    }
+  },
+
+  "groups": [
+    "flink"
+  ]
+}
