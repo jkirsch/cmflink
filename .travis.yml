@@ -1,7 +1,14 @@
 language: java
 
+cache:
+  directories:
+  - $HOME/.m2
+
+install:
+  - ./mvnw install
+
 # Check for errors
 script:
   - FLINK_PARCEL/prepare.sh
-  - mvn exec:java@validate-parcel
-  - mvn exec:java@validate-service
+  - ./mvnw exec:java@validate-parcel
+  - ./mvnw exec:java@validate-service
