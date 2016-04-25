@@ -35,6 +35,10 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.cloudera.enterprise</groupId>
+                <artifactId>schema-validator-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 

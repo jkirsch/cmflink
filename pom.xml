@@ -11,6 +11,8 @@
 
     <properties>
         <flink.version>1.0.2</flink.version>
+
+        <cdh.validation.version>5.5.4</cdh.validation.version>
     </properties>
 
 
@@ -51,36 +53,52 @@
                             <mainClass>com.cloudera.cli.validator.Main</mainClass>
                         </configuration>
                     </execution>
-
                 </executions>
 
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.cloudera.enterprise</groupId>
+                    <artifactId>schema-validator-maven-plugin</artifactId>
+                    <version>${cdh.validation.version}</version>
+                    <executions>
+                        <execution>
+                            <id>validate-schema</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>validate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+
+        </pluginManagement>
     </build>
 
     <repositories>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
         </repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>com.github.cloudera</groupId>
-            <artifactId>cm_ext</artifactId>
-            <version>master-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.cloudera.cmf.schema</groupId>
-                    <artifactId>cloudera-manager-schema</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.cloudera.enterprise</groupId>
+            <artifactId>schema-validator</artifactId>
+            <version>${cdh.validation.version}</version>
         </dependency>
     </dependencies>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 
 </project>
