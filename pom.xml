@@ -9,6 +9,11 @@
     <name>Flink Cloudera Manager Service</name>
     <packaging>pom</packaging>
 
+    <properties>
+        <flink.version>1.0.2</flink.version>
+    </properties>
+
+
     <modules>
         <module>FLINK_ON_YARN</module>
     </modules>
@@ -16,16 +21,66 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <descriptors>
-                        <descriptor>assembly.xml</descriptor>
-                    </descriptors>
-                </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <executions>
+                    <execution>
+                        <id>validate-parcel</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <includeProjectDependencies>true</includeProjectDependencies>
+                            <includePluginDependencies>false</includePluginDependencies>
+                            <commandlineArgs>-d FLINK_PARCEL/Flink-${flink.version}</commandlineArgs>
+                            <!-- optional -->
+                            <mainClass>com.cloudera.cli.validator.Main</mainClass>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>validate-service</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <includeProjectDependencies>true</includeProjectDependencies>
+                            <includePluginDependencies>false</includePluginDependencies>
+                            <commandlineArgs>-s FLINK_ON_YARN/src/descriptor/service.sdl</commandlineArgs>
+                            <!-- optional -->
+                            <mainClass>com.cloudera.cli.validator.Main</mainClass>
+                        </configuration>
+                    </execution>
+
+                </executions>
+
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.cloudera</groupId>
+            <artifactId>cm_ext</artifactId>
+            <version>master-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.cloudera.cmf.schema</groupId>
+                    <artifactId>cloudera-manager-schema</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
 
 </project>

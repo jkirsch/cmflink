@@ -1,1 +1,7 @@
 language: java
+
+# Check for errors
+script:
+  - FLINK_PARCEL/prepare.sh
+  - mvn exec:java@validate-parcel
+  - mvn exec:java@validate-service
